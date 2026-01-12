@@ -159,13 +159,11 @@
   </head>
   <body>
     <a class="skip" href="#main">Aller au contenu</a>
-    <!-- top progress bar (scroll indicator) -->
     <div id="progress" aria-hidden="true"><div class="bar"></div></div>
     <div id="main" class="container" role="main">
     <header>
       <div class="brand" role="banner">
         <div class="avatar" aria-hidden="true">
-          <!-- simple inline SVG avatar -->
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <rect width="24" height="24" rx="6" fill="#0ea5a4"/>
             <path d="M8 14c0-2 3.2-3 4-3s4 1 4 3v1H8v-1z" fill="#05282a" opacity="0.9"/>
@@ -223,7 +221,7 @@
           <div style="display:flex;gap:8px;justify-content:space-between">
             <a class="btn" href="mailto:mazou.jeremy@etu.umontpellier.fr">Envoyer un email</a>
             <a class="muted" href="#" id="downloadCv">Télécharger CV (TXT)</a>
-            <a class="muted" href="#" id="downloadPdf">Télécharger CV (PDF)</a>
+            <a class="btn" href="Mazou_CV.pdf" download="Mazou_CV.pdf">Télécharger CV (PDF)</a>
           </div>
           <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
             <span style="background:linear-gradient(90deg,var(--accent),rgba(0,201,166,0.85));padding:6px 10px;border-radius:999px;color:#002226;font-weight:800;font-size:.85rem">Disponible</span>
@@ -262,7 +260,6 @@
       <div class="projects">
         <article class="project" tabindex="0" data-title="Stand Salon des Entreprises" data-desc="Participation à la mise en place d'un stand pour le salon des entreprises.">
           <div class="proj-icon" aria-hidden="true">
-            <!-- briefcase / stand icon -->
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="2" fill="currentColor"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke="rgba(2,6,23,0.2)" stroke-width="1"/></svg>
           </div>
           <div class="proj-body">
@@ -272,8 +269,6 @@
         </article>
       </div>
     </section>
-
-    <!-- témoignages section removed as requested -->
 
     <section id="contact" class="card" style="margin-top:20px">
       <h3>Contact</h3>
@@ -300,7 +295,6 @@
     </footer>
   </div>
 
-  <!-- Modal for project details -->
   <div id="modal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="modalTitle" aria-modal="true">
     <div class="box card">
       <h4 id="modalTitle">Détails du projet</h4>
@@ -430,19 +424,6 @@
         document.querySelectorAll('.fade-up').forEach((el, i)=> setTimeout(()=> el.classList.add('show'), 280 + i*90));
       });
 
-      // Download CV as printable page (user can save as PDF from print dialog)
-      document.getElementById('downloadPdf')?.addEventListener('click', function(e){
-        e.preventDefault();
-        const title = 'CV - Mazou Jérémy';
-        const content = `<html><head><title>${title}</title><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><style>body{font-family:Inter,Arial,Helvetica,sans-serif;padding:28px;color:#0b1220}h1{font-size:22px}h2{font-size:16px;margin-top:18px}p{margin:6px 0} .skills{margin-top:8px} .skill{margin:4px 0}</style></head><body><h1>Mazou Jérémy</h1><p>Étudiant en BUT Réseaux et Télécommunications</p><h2>Compétences</h2><div class="skills"><div class="skill">Python — 30%</div><div class="skill">Linux — 50%</div><div class="skill">Réseaux — 60%</div><div class="skill">Administration Bash — 45%</div></div><h2>Expérience</h2><p>Stage — Maurel &amp; Prom (févr. 2022): mise en place d'un mini réseau local, inventaire des équipements.</p><h2>Contact</h2><p>mazou.jeremy@etu.umontpellier.fr</p></body></html>`;
-        const w = window.open('', '_blank');
-        if(!w) return alert('Impossible d’ouvrir une nouvelle fenêtre — vérifiez le bloqueur de popups.');
-        w.document.write(content);
-        w.document.close();
-        // Give browser a moment then open print dialog
-        setTimeout(()=> w.print(), 420);
-      });
-
         /* progress bar + active nav based on scroll */
         const progress = document.querySelector('#progress .bar');
         function updateProgress(){
@@ -481,5 +462,4 @@
     })();
   </script>
 </body>
-
 </html>
