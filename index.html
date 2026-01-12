@@ -218,9 +218,8 @@
         <div class="card" style="display:flex;flex-direction:column;gap:10px;align-items:stretch">
           <h4 style="margin:0 0 6px">Contact rapide</h4>
           <p class="muted" style="margin:0 0 8px">Vous pouvez m'écrire directement : <a href="mailto:mazou.jeremy@etu.umontpellier.fr">mazou.jeremy@etu.umontpellier.fr</a></p>
-          <div style="display:flex;gap:8px;justify-content:space-between">
+          <div style="display:flex;gap:8px;justify-content:center">
             <a class="btn" href="mailto:mazou.jeremy@etu.umontpellier.fr">Envoyer un email</a>
-            <a class="muted" href="#" id="downloadCv">Télécharger CV (TXT)</a>
             <a class="btn" href="Mazou_CV.pdf" download="Mazou_CV.pdf">Télécharger CV (PDF)</a>
           </div>
           <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
@@ -306,12 +305,9 @@
   </div>
 
   <script>
-    // small helpers & interactions
     (function(){
-      // set year
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      // theme toggle
       const themeToggle = document.getElementById('themeToggle');
       const root = document.documentElement;
       const saved = localStorage.getItem('theme');
@@ -323,7 +319,6 @@
         themeToggle.setAttribute('aria-pressed', current === 'light');
       });
 
-      // project modal
       const modal = document.getElementById('modal');
       const modalDesc = document.getElementById('modalDesc');
       const projects = document.querySelectorAll('.project');
@@ -340,10 +335,8 @@
       document.getElementById('modalClose').addEventListener('click', closeModal);
       modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
       function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
-      // close modal on Escape
       document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
 
-      // form handling: open mailto if JS available, otherwise fallback to form action
       window.handleSubmit = function(e){
         e.preventDefault();
         const name = encodeURIComponent(document.getElementById('name').value.trim());
@@ -357,7 +350,6 @@
         return false;
       };
 
-      // animate skill bars when visible
       const skillsEl = document.getElementById('skills');
       if(skillsEl){
         const skillIO = new IntersectionObserver((entries)=>{
@@ -371,17 +363,6 @@
         skillIO.observe(skillsEl);
       }
 
-      // quick CV download: personalized basic TXT file
-      document.getElementById('downloadCv').addEventListener('click', function(e){
-        e.preventDefault();
-        const content = `CV - Mazou Jérémy\n\nÉtudiant en BUT Réseaux & Télécommunications\n\nCompétences:\n- Python: 30%\n- Linux: 50%\n- Réseaux: 60%\n- Administration Bash: 45%\n\nExpérience:\n- Stage (févr. 2022) — Maurel & Prom: mise en place d'un mini réseau local, inventaire des équipements.\n\nEmail: mazou.jeremy@etu.umontpellier.fr\n`;
-        const blob = new Blob([content], {type:'text/plain'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a'); a.href = url; a.download = 'CV-Mazou-Jeremy.txt'; a.click();
-        URL.revokeObjectURL(url);
-      });
-
-      // smooth scrolling for internal links
       document.querySelectorAll('a[href^="#"]').forEach(a=>{
         a.addEventListener('click', function(e){
           const target = document.querySelector(this.getAttribute('href'));
@@ -389,7 +370,6 @@
         });
       });
 
-      // mobile nav toggle
       const menuToggle = document.getElementById('menuToggle');
       const nav = document.querySelector('nav');
       if(menuToggle){
@@ -397,11 +377,9 @@
           const open = nav.classList.toggle('open');
           menuToggle.setAttribute('aria-expanded', open);
         });
-        // close menu after clicking a link
         nav.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', ()=>{ nav.classList.remove('open'); menuToggle.setAttribute('aria-expanded', false); }));
       }
 
-      // accent swatches: switch accent color and save
       const swatchGreen = document.getElementById('swatchGreen');
       const swatchBlue = document.getElementById('swatchBlue');
       function setAccent(a){
@@ -410,21 +388,17 @@
         swatchGreen.setAttribute('aria-pressed', a === 'green');
         swatchBlue.setAttribute('aria-pressed', a === 'blue');
       }
-      // init from storage
       const savedAccent = localStorage.getItem('accent') || 'green';
       setAccent(savedAccent);
       swatchGreen.addEventListener('click', ()=> setAccent('green'));
       swatchBlue.addEventListener('click', ()=> setAccent('blue'));
 
-      // intro animation on first load (or each load) — reveal elements with stagger
       document.documentElement.classList.add('intro');
       window.addEventListener('load', ()=>{
         setTimeout(()=>{ document.documentElement.classList.add('loaded'); document.documentElement.classList.remove('intro') }, 220);
-        // stagger fade-up elements
         document.querySelectorAll('.fade-up').forEach((el, i)=> setTimeout(()=> el.classList.add('show'), 280 + i*90));
       });
 
-        /* progress bar + active nav based on scroll */
         const progress = document.querySelector('#progress .bar');
         function updateProgress(){
           const scrolled = window.scrollY || window.pageYOffset;
@@ -435,7 +409,6 @@
         window.addEventListener('scroll', updateProgress, {passive:true});
         updateProgress();
 
-        // active menu + reveal animations
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('nav a[href^="#"]');
         const io = new IntersectionObserver((entries)=>{
@@ -443,7 +416,6 @@
             const id = entry.target.getAttribute('id');
             if(entry.isIntersecting){
               navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
-              // reveal any children
               entry.target.querySelectorAll('.stagger, .fade-up').forEach((el,i)=>{
                 setTimeout(()=> el.classList.add('show'), i * 80);
               });
@@ -452,10 +424,8 @@
         }, {root:null, rootMargin:'-28% 0px -40% 0px', threshold:0});
         sections.forEach(s => io.observe(s));
 
-        // make project cards animate on load
         document.querySelectorAll('.projects .project').forEach((p, i)=>{ p.style.opacity = 0; setTimeout(()=>{ p.style.transition = 'opacity .6s, transform .4s'; p.style.opacity = 1; }, 150 + i*90); });
 
-        // small style helper for name highlight
         const style = document.createElement('style');
         style.textContent = '.name-highlight{background:linear-gradient(90deg,var(--accent), rgba(0,201,166,0.9));-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900}';
         document.head.appendChild(style);
