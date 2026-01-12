@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Portfolio personnel — Présentation, projets et contact." />
+  <meta name="author" content="Votre Nom" />
+  <meta property="og:title" content="Portfolio — Votre Nom" />
+  <meta property="og:description" content="Développeur / Designer — Projets, compétences et contact." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>Portfolio — Votre Nom</title>
+
+  <style>
+    /* Palette réduite à 2 couleurs (plus neutres blanc/noir) */
+      :root{
+        --bg: #07111a; /* fond profond */
+        --accent: #00c9a6; /* accent vibrant */
+        --accent-alt: #00aaff; /* alternative accent (blue) */
+        --muted-rgb: 245,251,251; /* pour créer variantes */
+        --muted: rgba(var(--muted-rgb), 0.78);
+        --card-alpha: rgba(255,255,255,0.03);
+        --radius:14px;
+        --shadow: 0 18px 50px rgba(2,6,23,0.6);
+        --transition: cubic-bezier(.2,.9,.2,1);
+        color-scheme: dark;
+      }
+    [data-theme="light"]{ /* light keeps brand accent but neutral background */
+      --bg: #ffffff;
+      --muted: rgba(2,6,23,0.75);
+      --card-alpha: rgba(2,6,23,0.03);
+      --accent: #00c9a6;
+      color-scheme: light;
+    }
+    /* accent variants via data-accent on html */
+    [data-accent="green"]{ --accent: #00c9a6 }
+    [data-accent="blue"]{ --accent: var(--accent-alt) }
+
+    *{box-sizing:border-box}
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap');
+    html,body{height:100%; margin:0; font-family:'Poppins', Inter, system-ui, -apple-system,'Segoe UI',Roboto,Arial; background:linear-gradient(180deg,var(--bg), #07101a); color:#f5fbfb; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale}
+      html,body{height:100%; margin:0; font-family:'Poppins', Inter, system-ui, -apple-system,'Segoe UI',Roboto,Arial; background:radial-gradient(600px 400px at 10% 10%, rgba(0,201,166,0.035), transparent), radial-gradient(600px 400px at 95% 90%, rgba(0,201,166,0.02), transparent), linear-gradient(180deg,var(--bg), #031219); color:rgba(var(--muted-rgb),1); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale}
+    a{color:var(--accent); text-decoration:none}
+    /* Layout */
+    .container{max-width:980px; margin:0 auto; padding:28px}
+    header{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:26px;position:sticky;top:0;z-index:50;padding-top:14px;padding-bottom:12px;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.06))}
+    .controls{display:flex;gap:8px;align-items:center}
+    .swatch{width:18px;height:18px;border-radius:6px;border:2px solid rgba(255,255,255,0.06);cursor:pointer;display:inline-block}
+    .swatch[aria-pressed="true"]{outline:3px solid rgba(255,255,255,0.06);transform:scale(1.06)}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo-text{font-weight:900;letter-spacing:0.4px}
+      .logo-sub{font-size:.9rem;color:var(--muted);font-weight:600;margin-top:2px}
+    .avatar{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg, #2a3646, #11202b);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .avatar svg{width:44px;height:44px;opacity:.95}
+    nav a{margin-left:14px;font-weight:600;color:var(--muted)}
+    h1{margin:4px 0 4px;font-size:1.8rem}
+    .tagline{color:var(--muted);margin:0 0 18px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 320px;gap:22px;align-items:center;margin-bottom:36px;padding:18px;border-radius:16px;background:linear-gradient(180deg,rgba(0,0,0,0.06),transparent)}
+      .hero{display:grid;grid-template-columns:1fr 320px;gap:22px;align-items:center;margin-bottom:36px;padding:20px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);box-shadow:var(--shadow)}
+      .hero-hero{font-size:1.12rem;color:var(--muted);line-height:1.45}
+      .hero h2{font-size:2.3rem;margin:0 0 6px;letter-spacing:-0.3px}
+      .hero .accent-line{height:6px;width:110px;border-radius:999px;background:linear-gradient(90deg,var(--accent),rgba(0,201,166,0.85));box-shadow:0 18px 40px rgba(0,201,166,0.12);animation:shift 3s infinite alternate}
+      @keyframes shift{from{transform:translateX(-6px)}to{transform:translateX(6px)}}
+    .card{background:linear-gradient(180deg,var(--card),rgba(255,255,255,0.02));padding:20px;border-radius:var(--radius);box-shadow:0 6px 18px rgba(2,6,23,0.6);backdrop-filter: blur(6px)}
+    .card{transition:transform .28s, box-shadow .28s}
+    .cta{display:inline-flex;gap:10px;align-items:center;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,var(--accent),rgba(0,201,166,0.9));color:#002226;font-weight:800;letter-spacing:0.2px;box-shadow:0 8px 30px rgba(0,201,166,0.12);transform:translateZ(0)}
+      .cta{display:inline-flex;gap:10px;align-items:center;padding:12px 16px;border-radius:14px;background:linear-gradient(90deg,var(--accent),rgba(0,201,166,0.95));color:#002226;font-weight:800;letter-spacing:0.25px;box-shadow:0 16px 40px rgba(0,201,166,0.12);transform:translateZ(0);transition:transform .28s var(--transition)}
+      .cta:hover{transform:translateY(-4px) scale(1.02)}
+    .links{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+    .hero-right{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:22px}
+    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+
+    .project{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform .28s, box-shadow .28s}
+      .project{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform .28s var(--transition), box-shadow .28s var(--transition);display:flex;gap:12px;align-items:flex-start}
+      .project:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 28px 64px rgba(0,0,0,0.55)}
+      .project .proj-icon{flex:0 0 56px;height:56px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.03)}
+      .project .proj-icon svg{width:28px;height:28px;opacity:.95}
+      .project .proj-body{flex:1}
+    .project img{transition:transform .5s ease, filter .36s ease}
+    .project:hover img{transform:scale(1.04);filter:brightness(.98) saturate(1.06)}
+    .project h4{transition:color .25s}
+    .project:hover h4{color:var(--accent)}
+    .project img{width:100%;border-radius:10px;display:block;height:130px;object-fit:cover;margin-bottom:10px}
+
+    .skills{display:block;gap:12px}
+    .skill-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .skill-label{font-weight:600;color:var(--muted);min-width:140px}
+    .skill-bar{flex:1;height:10px;border-radius:999px;background:rgba(255,255,255,0.06);overflow:hidden;margin-left:12px}
+    .skill-bar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent), rgba(0,201,166,0.9));transition:width .9s cubic-bezier(.2,.9,.2,1)}
+    .skill-pct{width:44px;text-align:right;color:var(--muted);font-weight:700}
+
+    /* Contact */
+    form{display:flex;flex-direction:column;gap:12px}
+    input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:8px;color:inherit}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:#05282a;font-weight:700;border:none;cursor:pointer}
+      .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:#05282a;font-weight:700;border:none;cursor:pointer;transition:transform .22s var(--transition), box-shadow .22s var(--transition)}
+      .btn:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,201,166,0.12)}
+    .btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,201,166,0.12)}
+    .muted{color:var(--muted);font-size:.95rem}
+
+    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:.9rem}
+
+    /* Small screens */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr; }
+      .grid{grid-template-columns:1fr}
+    }
+
+    /* mobile nav */
+    .menu-toggle{display:none}
+    @media (max-width:680px){
+      .menu-toggle{display:inline-flex}
+      nav{position:fixed;right:14px;top:64px;background:linear-gradient(180deg,rgba(0,0,0,0.75),rgba(0,0,0,0.55));padding:12px;border-radius:12px;display:none;flex-direction:column;gap:8px;backdrop-filter: blur(6px)}
+      nav.open{display:flex}
+    }
+
+    /* skip link for keyboard users */
+    .skip{position:absolute;left:12px;top:12px;padding:8px 10px;border-radius:6px;background:var(--accent);color:#002226;font-weight:700;transform:translateY(-200%);transition:transform .18s}
+    .skip:focus{transform:none;z-index:80}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);visibility:hidden;opacity:0;transition:opacity .22s,visibility .22s}
+    .modal.open{visibility:visible;opacity:1}
+    .modal .box{max-width:780px;width:94%;padding:18px;border-radius:14px;transform:translateY(10px) scale(.98);opacity:0;transition:transform .28s cubic-bezier(.2,.9,.2,1),opacity .24s}
+    .modal.open .box{transform:none;opacity:1}
+
+    /* entrance animations */
+    .fade-up{transform:translateY(14px);opacity:0;animation:fadeUp .64s forwards}
+    @keyframes fadeUp{to{transform:none;opacity:1}}
+    /* intro sequence for first load */
+    .intro .fade-up{opacity:0;transform:translateY(18px)}
+    .intro.loaded .fade-up{opacity:1;transform:none;transition:all .64s var(--transition)}
+    .stagger {opacity:0;transform:translateY(10px);}
+    .stagger.show {animation:staggerIn .6s forwards}
+    @keyframes staggerIn{to{opacity:1;transform:none}}
+
+    /* top progress bar */
+    #progress {position:fixed;left:0;right:0;top:0;height:4px;background:transparent;z-index:60}
+    #progress .bar {height:100%;width:0%;background:linear-gradient(90deg,var(--accent), rgba(0,201,166,0.85));box-shadow:0 6px 18px rgba(0,201,166,0.12)}
+
+    /* nav styles */
+    nav{display:flex;align-items:center;gap:14px}
+    nav a{margin-left:0;padding:6px 10px;border-radius:8px;color:var(--muted);font-weight:700}
+    nav a.active{color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent)}
+
+    /* microinteraction focus */
+    a:focus, button:focus, .project:focus{outline:3px solid rgba(0,201,166,0.12);outline-offset:3px}
+    /* print */
+    @media print{
+      body{background:#fff;color:#000}
+      .card{box-shadow:none;border:none;background:#fff}
+      nav, .cta {display:none}
+    }
+  </style>
+  </head>
+  <body>
+    <a class="skip" href="#main">Aller au contenu</a>
+    <!-- top progress bar (scroll indicator) -->
+    <div id="progress" aria-hidden="true"><div class="bar"></div></div>
+    <div id="main" class="container" role="main">
+    <header>
+      <div class="brand" role="banner">
+        <div class="avatar" aria-hidden="true">
+          <!-- simple inline SVG avatar -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="24" height="24" rx="6" fill="#0ea5a4"/>
+            <path d="M8 14c0-2 3.2-3 4-3s4 1 4 3v1H8v-1z" fill="#05282a" opacity="0.9"/>
+            <path d="M12 8a2 2 0 100-4 2 2 0 000 4z" fill="#05282a"/>
+          </svg>
+        </div>
+          <div>
+            <h1 class="logo-text">Mazou Jérémy</h1>
+            <p class="tagline">Étudiant en BUT Réseaux et Télécommunications — Dynamique, adaptable, bon en travail d'équipe</p>
+          </div>
+      </div>
+
+        <nav role="navigation" aria-label="Navigation principale">
+          <a href="#apropos">À propos</a>
+          <a href="#projets">Projets</a>
+          <a href="#contact">Contact</a>
+            <div class="controls" role="toolbar" aria-label="Contrôles">
+              <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-label="Ouvrir le menu" style="margin-left:6px;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:none;color:var(--muted);display:none">☰</button>
+              <div aria-hidden="true" style="width:8px"></div>
+              <div role="group" aria-label="Accent color">
+                <button class="swatch" id="swatchGreen" title="Accent vert" aria-pressed="true" style="background:linear-gradient(180deg,#00c9a6,#00a88f)"></button>
+                <button class="swatch" id="swatchBlue" title="Accent bleu" aria-pressed="false" style="background:linear-gradient(180deg,#00aaff,#008fe0)"></button>
+              </div>
+              <button id="themeToggle" aria-pressed="false" title="Changer le thème" style="margin-left:10px;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:none;color:var(--muted)">Thème</button>
+            </div>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="card fade-up" style="animation-delay:.05s">
+        <h2>Bonjour — je suis <strong class="name-highlight">Mazou Jérémy</strong></h2>
+        <p class="hero-hero">Étudiant en <strong>BUT Réseaux et Télécommunications</strong>. Depuis toujours passionné par l'informatique et surtout la sécurité informatique, le monde numérique et quelque chose qui me pousse toujours à etre curieux, me documenter, m'informer. Ce monde est un monde pationnant qui a toujours quelque chose à offrir, voici pourquoi je trouve ça tellement pationnant</p>
+        <div class="accent-line" aria-hidden="true" style="margin:12px 0"></div>
+        <div class="links">
+          <a class="cta" href="#projets">Voir mes projets</a>
+          <a class="muted" href="#contact" style="align-self:center;">Me contacter</a>
+        </div>
+
+        <div style="margin-top:18px">
+          <h3 style="margin:8px 0 6px">Compétences clés</h3>
+          <div class="skills" id="skills">
+            <div class="skill-row"><div class="skill-label">Python</div><div class="skill-bar"><i data-pct="30"></i></div><div class="skill-pct">30%</div></div>
+            <div class="skill-row"><div class="skill-label">Linux</div><div class="skill-bar"><i data-pct="50"></i></div><div class="skill-pct">50%</div></div>
+            <div class="skill-row"><div class="skill-label">Réseaux</div><div class="skill-bar"><i data-pct="35"></i></div><div class="skill-pct">35%</div></div>
+            <div class="skill-row"><div class="skill-label">Administration Bash</div><div class="skill-bar"><i data-pct="45"></i></div><div class="skill-pct">45%</div></div>
+          </div>
+          
+        </div>
+      </div>
+
+      <aside class="hero-right">
+        <div class="card" style="display:flex;flex-direction:column;gap:10px;align-items:stretch">
+          <h4 style="margin:0 0 6px">Contact rapide</h4>
+          <p class="muted" style="margin:0 0 8px">Vous pouvez m'écrire directement : <a href="mailto:mazou.jeremy@etu.umontpellier.fr">mazou.jeremy@etu.umontpellier.fr</a></p>
+          <div style="display:flex;gap:8px;justify-content:space-between">
+            <a class="btn" href="mailto:mazou.jeremy@etu.umontpellier.fr">Envoyer un email</a>
+            <a class="muted" href="#" id="downloadCv">Télécharger CV (TXT)</a>
+            <a class="muted" href="#" id="downloadPdf">Télécharger CV (PDF)</a>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+            <span style="background:linear-gradient(90deg,var(--accent),rgba(0,201,166,0.85));padding:6px 10px;border-radius:999px;color:#002226;font-weight:800;font-size:.85rem">Disponible</span>
+            <small class="muted">Ouvert aux collaborations • patient et adaptable</small>
+          </div>
+        </div>
+
+        <div class="card" style="text-align:center">
+          <p style="margin:0;font-weight:700">Disponible pour missions</p>
+          <p class="muted" style="margin:6px 0 0">Freelance · Temps plein · Collaboration</p>
+        </div>
+      </aside>
+    </section>
+
+    <section id="apropos" class="card fade-up">
+      <h3>À propos</h3>
+      <p class="muted">Étudiant en <strong>BUT Réseaux et Télécommunications</strong>, je me concentre sur l'administration et la mise en place d'infrastructures réseau simples et maintenables. Lors de mon stage chez <strong>Maurel &amp; Prom</strong> (février 2022), j'ai déployé un mini-réseau local et réalisé l'inventaire des équipements, ce qui m'a permis d'approfondir les pratiques d'installation et de documentation technique. Curieux et méthodique, je privilégie la collaboration et la communication : j'aime apprendre en équipe et résoudre des problèmes concrets sur le terrain.</p>
+      <div style="margin-top:12px" class="grid">
+        <div>
+          <h4>Expérience</h4>
+          <p class="muted">Stage — Maurel &amp; Prom (février 2022). Mise en place d'un réseau local, inventaire des équipements et support technique.</p>
+        </div>
+        <div>
+          <h4>Compétences & valeurs</h4>
+          <ul class="muted">
+            <li>Esprit d'équipe et communication</li>
+            <li>Adaptabilité et patience</li>
+            <li>Sens du détail et rigueur technique</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projets" style="margin-top:20px">
+      <h3>Projets</h3>
+      <div class="projects">
+        <article class="project" tabindex="0" data-title="Stand Salon des Entreprises" data-desc="Participation à la mise en place d'un stand pour le salon des entreprises.">
+          <div class="proj-icon" aria-hidden="true">
+            <!-- briefcase / stand icon -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="2" fill="currentColor"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke="rgba(2,6,23,0.2)" stroke-width="1"/></svg>
+          </div>
+          <div class="proj-body">
+            <h4>Stand — Salon des entreprises</h4>
+            <p class="muted">Aide à la mise en place et logistique du stand : coordination, montage et support technique.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- témoignages section removed as requested -->
+
+    <section id="contact" class="card" style="margin-top:20px">
+      <h3>Contact</h3>
+      <p class="muted">Remplissez le formulaire ci-dessous ou écrivez directement à <a href="mailto:mazou.jeremy@etu.umontpellier.fr">mazou.jeremy@etu.umontpellier.fr</a>.</p>
+
+      <form id="contactForm" action="mailto:mazou.jeremy@etu.umontpellier.fr" method="post" enctype="text/plain" onsubmit="return handleSubmit(event)">
+        <input id="name" name="name" placeholder="Votre nom" aria-label="Votre nom" required>
+        <input id="email" type="email" name="email" placeholder="Votre email" aria-label="Votre email" required>
+        <textarea id="message" name="message" placeholder="Votre message" rows="5" aria-label="Votre message" required></textarea>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn" type="submit">Envoyer</button>
+          <small class="muted">ou</small>
+          <a class="muted" href="mailto:mazou.jeremy@etu.umontpellier.fr">Contacter par email</a>
+        </div>
+      </form>
+    </section>
+
+    <footer>
+      <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;align-items:center">
+        <a href="#" aria-label="LinkedIn" title="LinkedIn" style="color:var(--muted)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5z" fill="currentColor"/><path d="M0 8h5v16H0zM8 8h5v2.2c.7-1.2 2.2-2.2 4.6-2.2 5 0 6 3.3 6 7.6V24h-5v-7.1c0-1.7 0-3.9-2.4-3.9s-2.8 1.9-2.8 3.8V24H8z" fill="currentColor"/></svg></a>
+        <a href="#" aria-label="GitHub" title="GitHub" style="color:var(--muted)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 .5C5.73.5.86 5.37.86 11.64c0 4.78 3.09 8.82 7.38 10.24.54.1.74-.24.74-.53 0-.26-.01-1.14-.01-2.06-3 .65-3.64-1.45-3.64-1.45-.49-1.24-1.2-1.57-1.2-1.57-.98-.67.07-.66.07-.66 1.08.08 1.65 1.11 1.65 1.11.96 1.64 2.51 1.17 3.12.9.1-.7.38-1.17.69-1.44-2.4-.27-4.93-1.2-4.93-5.34 0-1.18.42-2.14 1.11-2.9-.11-.28-.48-1.4.1-2.9 0 0 .92-.29 3 .11.87-.24 1.8-.36 2.73-.36.93 0 1.86.12 2.73.36 2.08-.4 3-.11 3-.11.59 1.5.22 2.62.11 2.9.69.77 1.11 1.72 1.11 2.9 0 4.15-2.54 5.07-4.96 5.33.39.33.73.98.73 1.98 0 1.43-.01 2.58-.01 2.93 0 .29.2.64.75.53 4.3-1.42 7.38-5.46 7.38-10.24C23.14 5.37 18.27.5 12 .5z" fill="currentColor"/></svg></a>
+      </div>
+      <p style="margin-top:12px">© <span id="year"></span> Mazou Jérémy — <span class="muted">Portfolio</span></p>
+    </footer>
+  </div>
+
+  <!-- Modal for project details -->
+  <div id="modal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="modalTitle" aria-modal="true">
+    <div class="box card">
+      <h4 id="modalTitle">Détails du projet</h4>
+      <p id="modalDesc" class="muted"></p>
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+        <button class="btn" id="modalClose">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // small helpers & interactions
+    (function(){
+      // set year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // theme toggle
+      const themeToggle = document.getElementById('themeToggle');
+      const root = document.documentElement;
+      const saved = localStorage.getItem('theme');
+      if(saved) root.setAttribute('data-theme', saved);
+      themeToggle.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', current);
+        localStorage.setItem('theme', current);
+        themeToggle.setAttribute('aria-pressed', current === 'light');
+      });
+
+      // project modal
+      const modal = document.getElementById('modal');
+      const modalDesc = document.getElementById('modalDesc');
+      const projects = document.querySelectorAll('.project');
+      projects.forEach(p => p.addEventListener('click', openProject));
+      projects.forEach(p => p.addEventListener('keypress', (e)=>{ if(e.key === 'Enter') openProject.call(p); }));
+      function openProject(){
+        const title = this.dataset.title || 'Projet';
+        const desc = this.dataset.desc || '';
+        document.getElementById('modalTitle').textContent = title;
+        modalDesc.textContent = desc;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+      }
+      document.getElementById('modalClose').addEventListener('click', closeModal);
+      modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+      function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+      // close modal on Escape
+      document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+      // form handling: open mailto if JS available, otherwise fallback to form action
+      window.handleSubmit = function(e){
+        e.preventDefault();
+        const name = encodeURIComponent(document.getElementById('name').value.trim());
+        const email = encodeURIComponent(document.getElementById('email').value.trim());
+        const msg = encodeURIComponent(document.getElementById('message').value.trim());
+        if(!name || !email || !msg){ alert('Veuillez remplir tous les champs.'); return false; }
+        const subject = encodeURIComponent('Contact depuis portfolio — ' + name);
+        const body = 'Nom: ' + name + '%0D%0AEmail: ' + email + '%0D%0A%0D%0A' + msg;
+        const mailto = 'mailto:mazou.jeremy@etu.umontpellier.fr?subject=' + subject + '&body=' + body;
+        location.href = mailto;
+        return false;
+      };
+
+      // animate skill bars when visible
+      const skillsEl = document.getElementById('skills');
+      if(skillsEl){
+        const skillIO = new IntersectionObserver((entries)=>{
+          entries.forEach(entry=>{
+            if(entry.isIntersecting){
+              entry.target.querySelectorAll('.skill-bar i').forEach(el=>{ const pct = el.dataset.pct || '0'; el.style.width = pct + '%'; });
+              skillIO.unobserve(entry.target);
+            }
+          });
+        }, {threshold:0.25});
+        skillIO.observe(skillsEl);
+      }
+
+      // quick CV download: personalized basic TXT file
+      document.getElementById('downloadCv').addEventListener('click', function(e){
+        e.preventDefault();
+        const content = `CV - Mazou Jérémy\n\nÉtudiant en BUT Réseaux & Télécommunications\n\nCompétences:\n- Python: 30%\n- Linux: 50%\n- Réseaux: 60%\n- Administration Bash: 45%\n\nExpérience:\n- Stage (févr. 2022) — Maurel & Prom: mise en place d'un mini réseau local, inventaire des équipements.\n\nEmail: mazou.jeremy@etu.umontpellier.fr\n`;
+        const blob = new Blob([content], {type:'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'CV-Mazou-Jeremy.txt'; a.click();
+        URL.revokeObjectURL(url);
+      });
+
+      // smooth scrolling for internal links
+      document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', function(e){
+          const target = document.querySelector(this.getAttribute('href'));
+          if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth', block:'start'}); }
+        });
+      });
+
+      // mobile nav toggle
+      const menuToggle = document.getElementById('menuToggle');
+      const nav = document.querySelector('nav');
+      if(menuToggle){
+        menuToggle.addEventListener('click', ()=>{
+          const open = nav.classList.toggle('open');
+          menuToggle.setAttribute('aria-expanded', open);
+        });
+        // close menu after clicking a link
+        nav.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', ()=>{ nav.classList.remove('open'); menuToggle.setAttribute('aria-expanded', false); }));
+      }
+
+      // accent swatches: switch accent color and save
+      const swatchGreen = document.getElementById('swatchGreen');
+      const swatchBlue = document.getElementById('swatchBlue');
+      function setAccent(a){
+        document.documentElement.setAttribute('data-accent', a);
+        localStorage.setItem('accent', a);
+        swatchGreen.setAttribute('aria-pressed', a === 'green');
+        swatchBlue.setAttribute('aria-pressed', a === 'blue');
+      }
+      // init from storage
+      const savedAccent = localStorage.getItem('accent') || 'green';
+      setAccent(savedAccent);
+      swatchGreen.addEventListener('click', ()=> setAccent('green'));
+      swatchBlue.addEventListener('click', ()=> setAccent('blue'));
+
+      // intro animation on first load (or each load) — reveal elements with stagger
+      document.documentElement.classList.add('intro');
+      window.addEventListener('load', ()=>{
+        setTimeout(()=>{ document.documentElement.classList.add('loaded'); document.documentElement.classList.remove('intro') }, 220);
+        // stagger fade-up elements
+        document.querySelectorAll('.fade-up').forEach((el, i)=> setTimeout(()=> el.classList.add('show'), 280 + i*90));
+      });
+
+      // Download CV as printable page (user can save as PDF from print dialog)
+      document.getElementById('downloadPdf')?.addEventListener('click', function(e){
+        e.preventDefault();
+        const title = 'CV - Mazou Jérémy';
+        const content = `<html><head><title>${title}</title><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><style>body{font-family:Inter,Arial,Helvetica,sans-serif;padding:28px;color:#0b1220}h1{font-size:22px}h2{font-size:16px;margin-top:18px}p{margin:6px 0} .skills{margin-top:8px} .skill{margin:4px 0}</style></head><body><h1>Mazou Jérémy</h1><p>Étudiant en BUT Réseaux et Télécommunications</p><h2>Compétences</h2><div class="skills"><div class="skill">Python — 30%</div><div class="skill">Linux — 50%</div><div class="skill">Réseaux — 60%</div><div class="skill">Administration Bash — 45%</div></div><h2>Expérience</h2><p>Stage — Maurel &amp; Prom (févr. 2022): mise en place d'un mini réseau local, inventaire des équipements.</p><h2>Contact</h2><p>mazou.jeremy@etu.umontpellier.fr</p></body></html>`;
+        const w = window.open('', '_blank');
+        if(!w) return alert('Impossible d’ouvrir une nouvelle fenêtre — vérifiez le bloqueur de popups.');
+        w.document.write(content);
+        w.document.close();
+        // Give browser a moment then open print dialog
+        setTimeout(()=> w.print(), 420);
+      });
+
+        /* progress bar + active nav based on scroll */
+        const progress = document.querySelector('#progress .bar');
+        function updateProgress(){
+          const scrolled = window.scrollY || window.pageYOffset;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const pct = docHeight > 0 ? (scrolled / docHeight) * 100 : 0;
+          if(progress) progress.style.width = pct + '%';
+        }
+        window.addEventListener('scroll', updateProgress, {passive:true});
+        updateProgress();
+
+        // active menu + reveal animations
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('nav a[href^="#"]');
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(entry=>{
+            const id = entry.target.getAttribute('id');
+            if(entry.isIntersecting){
+              navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+              // reveal any children
+              entry.target.querySelectorAll('.stagger, .fade-up').forEach((el,i)=>{
+                setTimeout(()=> el.classList.add('show'), i * 80);
+              });
+            }
+          });
+        }, {root:null, rootMargin:'-28% 0px -40% 0px', threshold:0});
+        sections.forEach(s => io.observe(s));
+
+        // make project cards animate on load
+        document.querySelectorAll('.projects .project').forEach((p, i)=>{ p.style.opacity = 0; setTimeout(()=>{ p.style.transition = 'opacity .6s, transform .4s'; p.style.opacity = 1; }, 150 + i*90); });
+
+        // small style helper for name highlight
+        const style = document.createElement('style');
+        style.textContent = '.name-highlight{background:linear-gradient(90deg,var(--accent), rgba(0,201,166,0.9));-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900}';
+        document.head.appendChild(style);
+    })();
+  </script>
+</body>
+</html>
